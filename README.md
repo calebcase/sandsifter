@@ -216,6 +216,36 @@ in seconds), it is typically because these flags are required for the processor
 you are scanning.
 
 
+### Docker
+
+A docker image may be built and used:
+
+```
+docker build -t sandsifter .
+docker run -it --rm --privileged \
+  -v $(pwd)/data:/src/github.com/xoreaxeaxeax/sandsifter/data \
+  sandsifter
+```
+
+It must be run with `--privileged`.
+
+You may change the arguments to the `./sifter.py` by passing additional args:
+
+```
+docker run -it --rm --privileged \
+  -v $(pwd)/data:/src/github.com/xoreaxeaxeax/sandsifter/data \
+  sandsifter --unk --dis --len --sync --tick --low-mem -- -P1 -t -N
+```
+
+After completion you can run the summarize script with:
+
+```
+docker run -ti --rm \
+  -v $(pwd)/data:/src/github.com/xoreaxeaxeax/sandsifter/data \
+  --entrypoint=/src/github.com/xoreaxeaxeax/sandsifter/summarize.py \
+  sandsifter data/log
+```
+
 ### README TODO
 
 * algorithms: random tunneling brute driven/mutator
